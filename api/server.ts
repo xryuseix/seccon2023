@@ -1,7 +1,8 @@
 import { chall2 } from "./chall2.ts";
 import { chall3 } from "./chall3.ts";
 import { chall4 } from "./chall4.ts";
-import { ReqBody } from "./types.ts";
+import { ChallRes, ReqBody } from "./types.ts";
+import { multiParser } from "https://deno.land/x/multiparser/mod.ts";
 
 // ユーザのPOSTリクエストに関するクエリパラメータに応じて、適切な関数を呼び出しています
 function postRouter(challType: string, req: ReqBody) {
@@ -32,21 +33,26 @@ export default async (req: Request) => {
     if (typeof query.chall === "undefined") {
       return new Response("path param is required!");
     }
-    console.log(query.chall, url, req.body);
-    if(query.chall === "4") {
-      const result = postRouter(query.chall, req.body);
-      return result;
-    }
+    let result: ChallRes | Response = { error: "error" } as ChallRes;
     try {
-      const body = JSON.parse(await new Response(req.body).text());
-      const result = postRouter(query.chall, body);
-      if (result instanceof Response) {
-        return result;
+      if (query.chall === "4") {
+        const contentType = req.headers.get("content-type");
+        if (contentType && contentType.includes("multipart/form-data")) {
+          const body = await multiParser(req);
+          // result = postRouter(query.chall, body);
+          result  = { error: JSON.stringify(body) } as ChallRes;
+        }
       } else {
-        return new Response(JSON.stringify(result));
+        const body = JSON.parse(await new Response(req.body).text());
+        result = postRouter(query.chall, body);
       }
     } catch (e) {
       return new Response(e.message);
+    }
+    if (result instanceof Response) {
+      return result;
+    } else {
+      return new Response(JSON.stringify(result));
     }
   }
   if (method === "GET") {

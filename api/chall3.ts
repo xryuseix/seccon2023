@@ -29,7 +29,7 @@ export function chall3(req: Chall3ReqBody): ChallRes {
   }
 
   if (password === pw) {
-    return { flag: getFlag('chall3'), message: "fantastic!" };
+    return { flag: getFlag("chall3"), message: "fantastic!" };
   } else {
     return { error: `wrong password` };
   }

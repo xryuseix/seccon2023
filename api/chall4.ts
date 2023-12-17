@@ -10,5 +10,5 @@ export type Chall4ReqBody = z.infer<typeof Chall4ReqBodySchema>;
 
 export function chall4(req: Chall4ReqBody): ChallRes {
   console.log(req);
-  return { flag: getFlag('chall4'), message: "fantastic!" };
+  return { flag: getFlag("chall4"), message: "fantastic!" };
 }

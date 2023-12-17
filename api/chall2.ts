@@ -39,7 +39,7 @@ export function chall2(req: Chall2ReqBody): ChallRes {
   // 【ここが一番重要】なので、よく考えてみよう！
   if (products[product] - count >= 0) {
     if (product === "flag") {
-      return { flag: getFlag('chall2'), message: "fantastic!" };
+      return { flag: getFlag("chall2"), message: "fantastic!" };
     } else {
       return { message: `ok, you got '${count}' of '${product}'` };
     }
@@ -49,4 +49,3 @@ export function chall2(req: Chall2ReqBody): ChallRes {
     return { error: `not enough '${product}'` };
   }
 }
-
