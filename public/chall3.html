@@ -66,7 +66,7 @@
       submitBtn.addEventListener("click", () => {
         const passwordInput = document.getElementById("password").value;
 
-        fetch("/3", {
+        fetch("/?chall=3", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

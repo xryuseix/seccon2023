@@ -2,17 +2,20 @@ import { chall2 } from "./chall2.ts";
 import { chall3 } from "./chall3.ts";
 import { chall4 } from "./chall4.ts";
 import { ChallRes, ReqBody } from "./types.ts";
-import { multiParser } from "https://deno.land/x/multiparser/mod.ts";
+import { Form, multiParser } from "https://deno.land/x/multiparser/mod.ts";
 
 // ユーザのPOSTリクエストに関するクエリパラメータに応じて、適切な関数を呼び出しています
-function postRouter(challType: string, req: ReqBody) {
+function postRouter(challType: string, req: ReqBody | Form | undefined) {
+  if (typeof req === "undefined") {
+    return new Response("request body is undefined!");
+  }
   switch (challType) {
     case "2":
-      return chall2(req);
+      return chall2(req as ReqBody);
     case "3":
-      return chall3(req);
+      return chall3(req as ReqBody);
     case "4":
-      return chall4(req);
+      return chall4(req as Form);
     default:
       return new Response(`${challType} challenge is not found!`);
   }
@@ -39,8 +42,7 @@ export default async (req: Request) => {
         const contentType = req.headers.get("content-type");
         if (contentType && contentType.includes("multipart/form-data")) {
           const body = await multiParser(req);
-          // result = postRouter(query.chall, body);
-          result  = { error: JSON.stringify(body) } as ChallRes;
+          result = postRouter(query.chall, body);
         }
       } else {
         const body = JSON.parse(await new Response(req.body).text());
