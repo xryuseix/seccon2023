@@ -1,2 +1,4 @@
 debug.ts
 test.sh
+deno.lock
+deno.jsonc
