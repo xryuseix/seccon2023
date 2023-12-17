@@ -2,7 +2,7 @@
 import { ChallRes } from "./types.ts";
 import { getFlag } from "./flags.ts";
 import { Form, FormFile } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
-import { join } from "https://deno.land/std/path/mod.ts";
+import { join } from "https://deno.land/std@0.209.0/path/mod.ts";
 
 const getFilename = (image: FormFile | FormFile[]) => {
   if (Array.isArray(image)) {
@@ -13,6 +13,7 @@ const getFilename = (image: FormFile | FormFile[]) => {
     return image.filename;
   }
 }
+
 const doNotPathTraversal = (filename: string) => {
   return filename.replaceAll("../", "");
 };
