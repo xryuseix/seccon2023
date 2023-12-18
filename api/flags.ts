@@ -1,5 +1,3 @@
-const DEV_MODE = false;
-
 type Flags = {
   chall2: string;
   chall3: string;
@@ -12,7 +10,7 @@ const devFlags = {
   chall4: "ctf4b{chall4_flag}",
 };
 
-export function getFlag(chall: keyof Flags, isDev: boolean = DEV_MODE): string {
+export function getFlag(chall: keyof Flags): string {
   return devFlags[chall];
 }
 

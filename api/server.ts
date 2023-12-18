@@ -2,7 +2,10 @@ import { chall2 } from "./chall2.ts";
 import { chall3 } from "./chall3.ts";
 import { chall4 } from "./chall4.ts";
 import { ChallRes, ReqBody } from "./types.ts";
-import { Form, multiParser } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
+import {
+  Form,
+  multiParser,
+} from "https://deno.land/x/multiparser@0.114.0/mod.ts";
 
 // ユーザのPOSTリクエストに関するクエリパラメータに応じて、適切な関数を呼び出しています
 function postRouter(challType: string, req: ReqBody | Form | undefined) {

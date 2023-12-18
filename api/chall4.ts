@@ -1,4 +1,3 @@
-// ここはimportなので気にしなくて大丈夫です
 import { ChallRes } from "./types.ts";
 import { getFlag } from "./flags.ts";
 import { Form, FormFile } from "https://deno.land/x/multiparser@0.114.0/mod.ts";
@@ -12,7 +11,7 @@ const getFilename = (image: FormFile | FormFile[]) => {
     // Case for FormFile
     return image.filename;
   }
-}
+};
 
 const doNotPathTraversal = (filename: string) => {
   return filename.replaceAll("../", "");
@@ -26,7 +25,7 @@ export function chall4(req: Form): ChallRes {
   // TODO: implement file saving
   // Deno.writeFileSync(savePath, req.files.image.content);
 
-  if (savePath === "etc/passwd") {
+  if (savePath === "../etc/passwd") {
     return { flag: getFlag("chall4"), message: "okay...nice hacking!" };
   } else {
     return { error: `do not path traversal! savePath -> ${savePath}` };
