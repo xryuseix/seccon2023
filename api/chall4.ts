@@ -28,6 +28,6 @@ export function chall4(req: Form): ChallRes {
   if (savePath === "../etc/passwd") {
     return { flag: getFlag("chall4"), message: "okay...nice hacking!" };
   } else {
-    return { error: `do not path traversal! savePath -> ${savePath}` };
+    return { message: `OK! savePath -> ${savePath}` };
   }
 }
