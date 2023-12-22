@@ -26,6 +26,7 @@ function postRouter(challType: string, req: ReqBody | Form | undefined) {
 
 // サーバの起動やリクエストの処理をしています
 // この部分はあまり気にしなくて大丈夫です
+// 起動は deno task run でできます。
 // クエリパラメータとしてchall=1を指定すると、chall1関数が呼び出されます
 // また、chall2, chall3はPOSTリクエストでJSON形式のリクエストボディを送信する必要があります
 // 例えば、chall2の場合は以下のようにcurlコマンドを実行します
